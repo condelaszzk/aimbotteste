@@ -1,0 +1,614 @@
+<html><head><base href="https://example.com/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary-color: #ffd700;
+  --secondary-color: #1c1c1c;
+  --background: #0a0a0a;
+  --text-color: #ffffff;
+  --accent-color: #ff6b6b;
+  --gold-gradient: linear-gradient(135deg, #ffd700, #ffac33);
+}
+
+body {
+  background: var(--background);
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 450px;
+  background: var(--secondary-color);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--gold-gradient);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+  padding-bottom: 15px;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.close-btn {
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--accent-color);
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: var(--primary-color);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.feature-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.feature-item {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.feature-item label {
+  font-size: 15px;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 26px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444;
+  transition: .4s;
+  border-radius: 26px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background: var(--gold-gradient);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-inject {
+  background: var(--gold-gradient);
+  color: #000;
+}
+
+.btn-clean {
+  background: transparent;
+  border: 2px solid var(--accent-color);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+#notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold-gradient);
+  color: #000;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  display: none;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  z-index: 1000;
+}
+
+.credits {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 13px;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+.countdown {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.watermark {
+  position: absolute;
+  opacity: 0.1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.watermark-top-left {
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+  transform: rotate(-45deg);
+}
+
+.watermark-bottom-right {
+  bottom: 10px;
+  right: 10px;
+  font-size: 14px;
+  transform: rotate(45deg);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating-credit {
+  position: absolute;
+  font-size: 12px;
+  color: var(--primary-color);
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+    padding: 20px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">HYPER XIT FREE</div>
+    <div class="close-btn">×</div>
+  </div>
+  <h1>Aimbot Options</h1>
+  <div class="countdown" id="countdown">09:20:00</div>
+  <ul class="feature-list">
+    <li class="feature-item">
+      <label>ELITE AIMBOT</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>PRECISION CHECK</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>AUTO HEAD</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>SUPRESOR</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li class="feature-item">
+      <label>REGEDIT</label>
+      <label class="toggle">
+        <input type="checkbox" class="feature-toggle">
+        <span class="slider"></span>
+      </label>
+    </li>
+  </ul>
+  <div class="buttons">
+    <button class="btn btn-inject" id="injectBtn">ACTIVATE</button>
+    <button class="btn btn-clean" onclick="resetPage()">RESET</button>
+    <script>function resetPage() {
+      location.reload();
+    }</script>
+  </div>
+  <div class="credits">
+    <p>Página diseñada y programada por: @909_ios | @Luisdzx_</p>
+  </div>
+</div>
+
+<div id="notification">ACTIVATING FREE PANEL...</div>
+
+<div class="watermark watermark-top-left">@909_ios</div>
+<div class="watermark watermark-bottom-right">@909_ios</div>
+
+<div class="floating-credit" style="top: 20%; left: 5%;">@909_ios</div>
+<div class="floating-credit" style="top: 40%; right: 5%;">@909_ios</div>
+<div class="floating-credit" style="bottom: 30%; left: 10%;">@909_ios</div>
+
+<script>
+// Ensure DOM is fully loaded before running scripts
+document.addEventListener('DOMContentLoaded', (event) => {
+  const injectBtn = document.getElementById('injectBtn');
+  const notification = document.getElementById('notification');
+  const countdownElement = document.getElementById('countdown');
+
+  // Inject button functionality
+  injectBtn.addEventListener('click', function() {
+    notification.style.display = 'block';
+    notification.textContent = 'ACTIVATING FREE PANEL...';
+    setTimeout(() => {
+      notification.textContent = 'FREE ACCESS GRANTED';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 2000);
+    }, 1500);
+  });
+
+  // Toggle functionality
+  document.querySelectorAll('.toggle input').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      console.log(this.parentElement.previousElementSibling.textContent + " is now " + (this.checked ? "ENABLED" : "DISABLED"));
+    });
+  });
+
+  // Countdown functionality
+  function startCountdown() {
+    let totalSeconds = 9 * 60 * 60 + 20 * 60; // 9 hours and 20 minutes in seconds
+    
+    function updateCountdown() {
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      
+      countdownElement.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      
+      if (totalSeconds <= 0) {
+        clearInterval(countdownInterval);
+        lockOptions();
+      } else {
+        totalSeconds--;
+      }
+    }
+
+    updateCountdown(); // Initial call to set the correct time immediately
+    const countdownInterval = setInterval(updateCountdown, 1000);
+  }
+
+  function lockOptions() {
+    const toggles = document.querySelectorAll('.feature-toggle');
+    toggles.forEach(toggle => {
+      toggle.disabled = true;
+      toggle.parentElement.classList.add('disabled');
+    });
+    
+    notification.style.display = 'block';
+    notification.textContent = 'Opciones bloqueadas. Compre la versión VIP. Att: @909_ios';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 5000);
+  }
+
+  // Animation for floating credits
+  document.querySelectorAll('.floating-credit').forEach((el, index) => {
+    el.style.animation = `float ${3 + index * 0.5}s ease-in-out infinite`;
+  });
+
+  // Start the countdown when the page loads
+  startCountdown();
+});
+</script>
+<script>
+  // Import the necessary libraries
+const ios = require('ios-webkit-debug-proxy');
+const puppeteer = require('puppeteer');
+
+// Set up the iOS device connection
+ios.connect('http://localhost:27753', (err, device) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  // Launch the Free Fire app
+  device.launchApp('com.dts.freefireth', (err, app) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    // Get the app's web view
+    app.getWebView((err, webView) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      // Create a new page
+      webView.createPage((err, page) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        // Inject the aiming script
+        page.evaluate(() => {
+          // Get the game's canvas element
+          const canvas = document.querySelector('canvas');
+
+          // Get the game's context
+          const ctx = canvas.getContext('2d');
+
+          // Set the aiming speed (higher value = faster aiming)
+          const aimingSpeed = 10;
+
+          // Set the aiming accuracy (higher value = more accurate)
+          const aimingAccuracy = 0.5;
+
+          // Function to get the player's position
+          function getPlayerPosition() {
+            // Get the player's x and y coordinates
+            const playerX = ctx.canvas.width / 2;
+            const playerY = ctx.canvas.height / 2;
+            return { x: playerX, y: playerY };
+          }
+
+          // Function to get the enemy's position
+          function getEnemyPosition() {
+            // Get the enemy's x and y coordinates (this will require image processing or machine learning to detect enemies)
+            const enemyX = 0;
+            const enemyY = 0;
+            return { x: enemyX, y: enemyY };
+          }
+
+          // Function to aim at the enemy's head
+          function aimAtEnemyHead() {
+            // Get the player's position
+            const playerPosition = getPlayerPosition();
+
+            // Get the enemy's position
+            const enemyPosition = getEnemyPosition();
+
+            // Calculate the distance between the player and the enemy
+            const distanceX = enemyPosition.x - playerPosition.x;
+            const distanceY = enemyPosition.y - playerPosition.y;
+
+            // Calculate the angle to aim at the enemy's head
+            const angle = Math.atan2(distanceY, distanceX);
+
+            // Move the crosshair to the calculated angle
+            // This will require interacting with the game's UI elements
+            // For demonstration purposes, we'll just log the angle
+            console.log(`Aiming at angle: ${angle}`);
+          }
+
+          // Run the aiming function at an interval
+          setInterval(aimAtEnemyHead, aimingSpeed);
+        });
+      });
+    });
+  });
+});
+// Obtener el objeto de la cámara
+var cámara = getCameraObject();
+
+// Obtener el objeto del jugador
+var jugador = getPlayerObject();
+
+// Establecer el modo de apuntar en "auto"
+setAimMode("auto");
+
+// Recorrer todos los enemigos en la pantalla
+for (var enemigo in getEnemiesOnScreen()) {
+  // Calcular la posición y la distancia del enemigo
+  var posiciónEnemigo = getEnemyPosition(enemigo);
+  var distancia = calculateDistance(jugador, posiciónEnemigo);
+
+  // Si el enemigo está dentro del rango, apuntar a él
+  if (distancia < 100) {
+    aimAtEnemy(posiciónEnemigo);
+  }
+}
+
+// Disparar al enemigo apuntado
+shoot();
+
+// Función para obtener el objeto de la cámara
+function getCameraObject() {
+  // Utilizar el framework de hacking de juegos para obtener el objeto de la cámara
+  return iOSGG.getCameraObject();
+}
+
+// Función para obtener el objeto del jugador
+function getPlayerObject() {
+  // Utilizar el framework de hacking de juegos para obtener el objeto del jugador
+  return iOSGG.getPlayerObject();
+}
+
+// Función para establecer el modo de apuntar
+function setAimMode(modo) {
+  // Utilizar el framework de hacking de juegos para establecer el modo de apuntar
+  iOSGG.setAimMode(modo);
+}
+
+// Función para obtener los enemigos en la pantalla
+function getEnemiesOnScreen() {
+  // Utilizar el framework de hacking de juegos para obtener los enemigos en la pantalla
+  return iOSGG.getEnemiesOnScreen();
+}
+
+// Función para calcular la distancia entre dos puntos
+function calculateDistance(punto1, punto2) {
+  // Calcular la distancia utilizando el teorema de Pitágoras
+  return Math.sqrt(Math.pow(punto2.x - punto1.x, 2) + Math.pow(punto2.y - punto1.y, 2));
+}
+
+// Función para apuntar a un enemigo
+function aimAtEnemy(posiciónEnemigo) {
+  // Utilizar el framework de hacking de juegos para apuntar al enemigo
+  iOSGG.aimAtEnemy(posiciónEnemigo);
+}
+
+// Función para disparar
+function shoot() {
+  // Utilizar el framework de hacking de juegos para disparar
+  iOSGG.shoot();
+}
+// Get the game's canvas element
+const canvas = document.querySelector('canvas');
+
+// Get the game's context
+const ctx = canvas.getContext('2d');
+
+// Set the aiming speed (higher value = faster aiming)
+const aimingSpeed = 10;
+
+// Set the aiming accuracy (higher value = more accurate)
+const aimingAccuracy = 0.5;
+
+// Function to get the player's position
+function getPlayerPosition() {
+  // Get the player's x and y coordinates
+  const playerX = ctx.canvas.width / 2;
+  const playerY = ctx.canvas.height / 2;
+  return { x: playerX, y: playerY };
+}
+
+// Function to get the enemy's position
+function getEnemyPosition() {
+  // Get the enemy's x and y coordinates (this will require image processing or machine learning to detect enemies)
+  const enemyX = 0;
+  const enemyY = 0;
+  return { x: enemyX, y: enemyY };
+}
+
+// Function to aim at the enemy's head
+function aimAtEnemyHead() {
+  // Get the player's position
+  const playerPosition = getPlayerPosition();
+
+  // Get the enemy's position
+  const enemyPosition = getEnemyPosition();
+
+  // Calculate the distance between the player and the enemy
+  const distanceX = enemyPosition.x - playerPosition.x;
+  const distanceY = enemyPosition.y - playerPosition.y;
+
+  // Calculate the angle to aim at the enemy's head
+  const angle = Math.atan2(distanceY, distanceX);
+
+  // Move the crosshair to the calculated angle
+  // This will require interacting with the game's UI elements
+  // For demonstration purposes, we'll just log the angle
+  console.log(`Aiming at angle: ${angle}`);
+}
+
+// Run the aiming function at an interval
+setInterval(aimAtEnemyHead, aimingSpeed);
+</script>
+</body>
+</html>
